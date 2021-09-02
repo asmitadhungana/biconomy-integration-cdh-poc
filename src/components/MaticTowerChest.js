@@ -933,8 +933,9 @@ function App() {
             if (metaTxEnabled) {
                 console.log("Sending meta transaction");
                 let userAddress = selectedAddress;
+                let mintAmount = web3.utils.toWei('1000000', 'ether');
                 let nonce = await contract.methods.getNonce(userAddress).call();
-                let functionSignature = contract.methods.mint(userAddress, 1000000).encodeABI();
+                let functionSignature = contract.methods.mint(userAddress, mintAmount).encodeABI();
                 let message = {};
                 message.nonce = parseInt(nonce);
                 message.from = userAddress;
@@ -980,8 +981,9 @@ function App() {
             if (metaTxEnabled) {
                 console.log("Sending meta transaction");
                 let userAddress = selectedAddress;
+                let allowanceFinal = web3.utils.toWei(allowance.toString(), 'ether');
                 let nonce = await contract.methods.getNonce(userAddress).call();
-                let functionSignature = contract.methods.approve(approvalAddress, allowance).encodeABI();
+                let functionSignature = contract.methods.approve(approvalAddress, allowanceFinal).encodeABI();
                 let message = {};
                 message.nonce = parseInt(nonce);
                 message.from = userAddress;
@@ -1025,10 +1027,11 @@ function App() {
         if (transferAddress != "" && transferAmount != 0 && contract ) {
             setTransactionHash("");
             if (metaTxEnabled) {
+                let transferAmountFinal = web3.utils.toWei(transferAmount.toString(), 'ether')
                 console.log("Sending meta transaction");
                 let userAddress = selectedAddress;
                 let nonce = await contract.methods.getNonce(userAddress).call();
-                let functionSignature = contract.methods.transfer(transferAddress, transferAmount).encodeABI();
+                let functionSignature = contract.methods.transfer(transferAddress, transferAmountFinal).encodeABI();
                 let message = {};
                 message.nonce = parseInt(nonce);
                 message.from = userAddress;
